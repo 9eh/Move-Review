@@ -1,5 +1,7 @@
 package com.ehcon.application.myapplication.networkData
 
+import com.ehcon.application.myapplication.model.TmdbMovie
+import com.ehcon.application.myapplication.model.TmdbMovieResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET

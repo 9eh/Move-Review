@@ -1,22 +1,24 @@
 package com.ehcon.application.myapplication.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ehcon.application.myapplication.networkData.ApiFactory
-import com.ehcon.application.myapplication.networkData.MovieRepository
-import com.ehcon.application.myapplication.networkData.TmdbMovie
+import com.ehcon.application.myapplication.repository.MovieRepository
+import com.ehcon.application.myapplication.model.TmdbMovie
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class MoviesViewModel : ViewModel() {
-    private val parentJob = Job()
+class MoviesViewModel (private val repository: MovieRepository)
+    : ViewModel() {
+    private val TAG = "MoviesViewModel"
 
+    private val parentJob = Job()
     private val coroutineContext: CoroutineContext
         get() = parentJob + Dispatchers.Default
 
     private val scope = CoroutineScope(coroutineContext)
 
-    private val repository: MovieRepository = MovieRepository(ApiFactory.tmdbApi)
+    //private val repository: MovieRepository = MovieRepository()
 
     private val _popularMoviesLiveData = MutableLiveData<MutableList<TmdbMovie>>()
     val popularMoviesLiveData: MutableLiveData<MutableList<TmdbMovie>>
@@ -29,12 +31,13 @@ class MoviesViewModel : ViewModel() {
         }
     }
 
-    fun cancelAllRequests() = coroutineContext.cancel()
+    private fun cancelAllRequests() = coroutineContext.cancel()
 
 
     override fun onCleared() {
         super.onCleared()
         cancelAllRequests()
+        Log.d(TAG, "onCleared() called")
     }
 
 

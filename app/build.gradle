@@ -85,5 +85,17 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutineVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion"
 
+    // Koin for Android
+    implementation "org.koin:koin-android:$koin_version"
+    // Koin for Android - Scope feature
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
+
+    // Room
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    // Test helpers
+    testImplementation "androidx.room:room-testing:$room_version"
+
+
 
 }

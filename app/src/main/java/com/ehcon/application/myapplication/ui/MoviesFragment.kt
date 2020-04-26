@@ -11,6 +11,8 @@ import androidx.lifecycle.Observer
 
 import com.ehcon.application.myapplication.R
 import com.ehcon.application.myapplication.viewmodel.MoviesViewModel
+import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
 
 class MoviesFragment : Fragment() {
 
@@ -18,7 +20,8 @@ class MoviesFragment : Fragment() {
         const val TAG = "MoviesFragment"
     }
 
-    private lateinit var viewModel: MoviesViewModel
+    //    private val viewModel: MoviesViewModel by viewModel()
+    private val viewModel by inject<MoviesViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,19 +32,15 @@ class MoviesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MoviesViewModel::class.java)
+
+//        viewModel = ViewModelProviders.of(this).get(MoviesViewModel::class.java)
         viewModel.fetchMovies()
 
-        viewModel.popularMoviesLiveData.observe(viewLifecycleOwner, Observer {movies ->
-            movies.forEach {movie ->
+        viewModel.popularMoviesLiveData.observe(viewLifecycleOwner, Observer { movies ->
+            movies.forEach { movie ->
                 Log.d(TAG, "movie: ${movie.title}")
             }
         })
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
     }
 }

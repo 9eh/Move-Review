@@ -1,7 +1,11 @@
-package com.ehcon.application.myapplication.networkData
+package com.ehcon.application.myapplication.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class TmdbMovie(
-    val id: Int,
+    @PrimaryKey val id: Int,
     val vote_average: Double,
     val title: String,
     val overview: String,
